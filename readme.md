@@ -1,6 +1,8 @@
 # generator-basic-project
 > start a basic project
 
+Create the following basic files `README.md`, `license`, `.editorconfig` and `.gitignore`.
+
 ## Install
 
 ```sh
