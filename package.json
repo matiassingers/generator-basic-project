@@ -1,6 +1,6 @@
 {
   "name": "generator-basic-project",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "start a basic project",
   "main": "app/index.js",
   "engines": {
