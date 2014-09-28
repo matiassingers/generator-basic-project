@@ -1,4 +1,4 @@
-# <%= _.slugify(moduleName) %> 
+# <%= projectName %> 
 > <%= description %>
 
 

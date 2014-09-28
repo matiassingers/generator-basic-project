@@ -23,8 +23,8 @@ var BasicProjectGenerator = yeoman.generators.Base.extend({
       var done = this.async();
 
       var prompts = [{
-        name: 'moduleName',
-        message: 'What is the name of your module?',
+        name: 'projectName',
+        message: 'What is the name of your project?',
         default: path.basename(process.cwd())
       }, {
           name: 'description',
@@ -32,7 +32,7 @@ var BasicProjectGenerator = yeoman.generators.Base.extend({
       }];
 
       this.prompt(prompts, function(props) {
-        this.moduleName = props.moduleName;
+        this.projectName = props.projectName;
 
         this.description = props.description;
 
