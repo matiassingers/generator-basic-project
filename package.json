@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/matiassingers/generator-basic-project",
   "dependencies": {
-    "yeoman-generator": "^0.17.0",
-    "shelljs": "~0.3.0"
+    "yeoman-generator": "0.17.7",
+    "shelljs": "0.3.0"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
