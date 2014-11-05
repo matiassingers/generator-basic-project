@@ -1,64 +1,61 @@
 'use strict';
 
+var util = require('util');
 var path = require('path');
 var shell = require('shelljs');
 var yeoman = require('yeoman-generator');
 
-var BasicProjectGenerator = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.pkg = require('../package.json');
 
-    this.name = this.user.git.name();
-    this.email = this.user.git.email();
+var BasicProjectGenerator = module.exports = function BasicProjectGenerator(args, options, config) {
+  yeoman.generators.Base.apply(this, arguments);
 
-    this.website = shell.exec('git config --get user.website', { silent: true }).output.trim();
+  this.pkg = require('../package.json');
 
-    this.user.github.username(function(err, username){
-      this.githubUsername = username;
-    }.bind(this));
-  },
+  this.name = this.user.git.name;
+  this.email = this.user.git.email;
 
-  prompting: {
-    askForName: function() {
-      var done = this.async();
+  this.website = shell.exec('git config --get user.website', { silent: true }).output.trim();
 
-      var prompts = [{
-        name: 'projectName',
-        message: 'What is the name of your project?',
-        default: path.basename(process.cwd())
-      }, {
-          name: 'description',
-          message: 'Please provide a short description for the project'
-      }];
+  this.githubUsername = void 0;
+  this.user.github.username(function(err, username){
+    this.githubUsername = username;
+  }.bind(this));
+};
 
-      this.prompt(prompts, function(props) {
-        this.projectName = props.projectName;
+util.inherits(BasicProjectGenerator, yeoman.generators.Base);
 
-        this.description = props.description;
+BasicProjectGenerator.prototype.prompting = function prompting(){
+  var done = this.async();
 
-        done();
-      }.bind(this));
-    }
-  },
+  var prompts = [{
+    name: 'projectName',
+    message: 'What is the name of your project?',
+    default: path.basename(process.cwd())
+  }, {
+    name: 'description',
+    message: 'Please provide a short description for the project'
+  }];
 
-  writing: {
-    before: function() {
-      if(!this.website){
-        this.website = this.githubUsername ? 'https://github.com/' + this.githubUsername : 'https://github.com/';
-        this.log('\n\nCouldn\'t find your website in git config under \'user.website\'');
-        this.log('Defaulting to Github url: ' + this.website);
-      }
-    },
+  this.prompt(prompts, function(props) {
+    this.projectName = props.projectName;
 
-    projectfiles: function () {
-      this.template('readme.md', 'readme.md');
+    this.description = props.description;
 
-      this.template('license', 'license');
+    done();
+  }.bind(this));
+};
 
-      this.template('editorconfig', '.editorconfig');
-      this.template('gitignore', '.gitignore');
-    }
+BasicProjectGenerator.prototype.writing = function writing(){
+  if(!this.website){
+    this.website = this.githubUsername ? 'https://github.com/' + this.githubUsername : 'https://github.com/';
+    this.log('\n\nCouldn\'t find your website in git config under \'user.website\'');
+    this.log('Defaulting to Github url: ' + this.website);
   }
-});
 
-module.exports = BasicProjectGenerator;
+  this.template('readme.md', 'readme.md');
+
+  this.template('license', 'license');
+
+  this.template('editorconfig', '.editorconfig');
+  this.template('gitignore', '.gitignore');
+};
