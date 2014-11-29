@@ -18,6 +18,6 @@ describe('basic project generator', function () {
       'license',
     ];
 
-    helpers.assertFiles(expected);
+    helpers.assertFile(expected);
   });
 });
