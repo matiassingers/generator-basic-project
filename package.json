@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/matiassingers/generator-basic-project",
   "dependencies": {
-    "yeoman-generator": "0.17.7",
+    "yeoman-generator": "0.18.0",
     "shelljs": "0.3.0"
   },
   "peerDependencies": {
